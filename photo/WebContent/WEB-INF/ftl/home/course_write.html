@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>海大摄影网.编写教程</title>
+		<style>
+			form {
+				margin: 0;
+			}
+			textarea {
+				display: block;
+			}
+		</style>
+		<link rel="stylesheet" href="${rq.contextPath}/assets/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="${rq.contextPath}/assets/kindeditor/default.css" />
+		<script charset="utf-8" src="${rq.contextPath}/assets/kindeditor/kindeditor-min.js"></script>
+		<script charset="utf-8" src="${rq.contextPath}/assets/kindeditor/zh_CN.js"></script>
+		<script>
+		var editor;
+		KindEditor.ready(function(K) {
+			editor = K.create('textarea[name="content"]', {
+				uploadJson : '${rq.contextPath}/course/upload.html',
+                fileManagerJson : '${rq.contextPath}/course/fileManager.html',
+                afterUpload: function(){this.sync();}, //图片上传后，将上传内容同步到textarea中
+                afterBlur: function(){this.sync();},   ////失去焦点时，将上传内容同步到textarea中
+                items : [
+                    'fontname','fontsize', '|','forecolor', 'hilitecolor','bold', 'italic','underline',
+                    'removeformat','|', 'justifyleft','justifycenter', 'justifyright','insertorderedlist',
+                    'insertunorderedlist','|', 'emoticons','link', '|','image'
+                    ]   
+			});
+			K('input[name=isEmpty]').click(function(e) {
+				alert(editor.isEmpty());
+			});
+			K('input[name=getText]').click(function(e) {
+				alert(editor.text());
+			});
+		
+			K('input[name=clear]').click(function(e) {
+				editor.html('');
+			});
+		});
+		
+			
+			
+		</script>
+	</head>
+	<body>
+	<div align="center" style="margin: 10px">
+		<form  role="form" method="post" action="${rq.contextPath}/course/save.html">
+		     <i style="font: 20">标题</i> <input value="${course.title}" required="required" name="title" class="form-control" type="text" placeholder="标题" style="width: 300px;"/>
+		     <div class="form-group" style="width: 300px">
+			    教程类型：<select name="type"  class="form-control" required="required">
+			      <option value="摄影技巧">摄影技巧</option>
+			      <option value="摄影后期">摄影后期</option>
+			      <option value="摄影设备">摄影设备</option>
+			    </select>
+			  </div>
+			作者：<input readonly="readonly" name="author" value="${user.name}" class="form-control" type="text" placeholder="用户登录" style="width: 300px;"/>
+			<br/>
+			<br/>
+			<input hidden="true" name="authorId" value="${user.id}"/>
+			<input hidden="true" name="id" value="${course.id}"/>
+			<textarea  name="content" style="width:1300px;height:800px;visibility:hidden;">
+			<#if course.content != "">
+				${course.content}"
+			<#else>
+					请输入文本
+			</#if>
+			
+			</textarea>
+			<p>
+				<input type="submit" class="btn btn-info" value="提交" />
+				<input type="button" class="btn btn-warning" name="clear" value="清空内容" />
+			</p>
+		</form>
+		</div>
+		<script charset="utf-8" src="${rq.contextPath}/assets/js/jquery.min.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			
+			if('${user}' == ''){
+				location.href = '${rq.contextPath}/login.html';
+			}
+			
+		})
+		</script>
+	</body>
+</html>

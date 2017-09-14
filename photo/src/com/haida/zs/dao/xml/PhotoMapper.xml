@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haida.zs.dao.PhotoMapper" >
+  <resultMap id="BaseResultMap" type="com.haida.zs.pojo.Photo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="theme" property="theme" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="camera_type" property="cameraType" jdbcType="CHAR" />
+    <result column="title" property="title" jdbcType="CHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="love" property="love" jdbcType="INTEGER" />
+    <result column="upload_time" property="uploadTime" jdbcType="CHAR" />
+    <result column="author" property="author" jdbcType="CHAR" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, theme, type, camera_type, title, url, info, love, upload_time, author, author_id, 
+    create_time, status
+  </sql>
+  
+  
+  <select id="search" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from photo
+    where
+    title like #{keyword} or author like #{keyword} or info like #{keyword}
+     order by create_time desc
+  </select>
+  <select id="findByTheme" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from photo
+    where theme = #{theme}
+    <if test="type!=null and type!=''" >
+	   and type = #{type}
+      </if>
+     order by create_time desc
+  </select>
+  
+  
+  <select id="findByLast" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from photo order by create_time desc limit 8
+  </select>
+  
+  <select id="findByUser" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from photo where author_id = #{userId}
+  </select>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from photo
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from photo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from photo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.haida.zs.pojo.Photo" >
+    insert into photo (id, theme, type, camera_type, 
+      title, url, info, love, 
+      upload_time, author, author_id, 
+      create_time, status)
+    values (#{id,jdbcType=INTEGER}, #{theme,jdbcType=CHAR}, #{type,jdbcType=CHAR}, #{cameraType,jdbcType=CHAR}, 
+      #{title,jdbcType=CHAR}, #{url,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, #{love,jdbcType=INTEGER}, 
+      #{uploadTime,jdbcType=CHAR}, #{author,jdbcType=CHAR}, #{authorId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=CHAR}, #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.haida.zs.pojo.Photo" >
+    insert into photo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="theme != null" >
+        theme,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="cameraType != null" >
+        camera_type,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="love != null" >
+        love,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="authorId != null" >
+        author_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="theme != null" >
+        #{theme,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="cameraType != null" >
+        #{cameraType,jdbcType=CHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=CHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="love != null" >
+        #{love,jdbcType=INTEGER},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=CHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=CHAR},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.haida.zs.pojo.Photo" >
+    update photo
+    <set >
+      <if test="theme != null" >
+        theme = #{theme,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="cameraType != null" >
+        camera_type = #{cameraType,jdbcType=CHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=CHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="love != null" >
+        love = #{love,jdbcType=INTEGER},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=CHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=CHAR},
+      </if>
+      <if test="authorId != null" >
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.haida.zs.pojo.Photo" >
+    update photo
+    set theme = #{theme,jdbcType=CHAR},
+      type = #{type,jdbcType=CHAR},
+      camera_type = #{cameraType,jdbcType=CHAR},
+      title = #{title,jdbcType=CHAR},
+      url = #{url,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR},
+      love = #{love,jdbcType=INTEGER},
+      upload_time = #{uploadTime,jdbcType=CHAR},
+      author = #{author,jdbcType=CHAR},
+      author_id = #{authorId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR},
+      status = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haida.zs.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.haida.zs.pojo.Course" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="CHAR" />
+    <result column="author" property="author" jdbcType="CHAR" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="love" property="love" jdbcType="INTEGER" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="type" property="type" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, author, author_id, content, love, photo_url, create_time, status, type
+  </sql>
+  
+  <select id="search" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where
+    title like #{keyword} or author like #{keyword} or content like #{keyword}
+     order by create_time desc
+  </select>
+  <select id="findByTheme" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where type = #{theme}
+     order by create_time desc
+  </select>
+  
+  <select id="findByLast" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course order by create_time desc limit 4
+  </select>
+  
+  <select id="findByUser" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List"/>
+    from course where author_id = #{userId}
+  </select>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.haida.zs.pojo.Course" >
+    insert into course (id, title, author, 
+      author_id, content, love, 
+      photo_url, create_time, status, 
+      type)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=CHAR}, #{author,jdbcType=CHAR}, 
+      #{authorId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{love,jdbcType=INTEGER}, 
+      #{photoUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR}, #{status,jdbcType=BIT}, 
+      #{type,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.haida.zs.pojo.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="authorId != null" >
+        author_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="love != null" >
+        love,
+      </if>
+      <if test="photoUrl != null" >
+        photo_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=CHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=CHAR},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="love != null" >
+        #{love,jdbcType=INTEGER},
+      </if>
+      <if test="photoUrl != null" >
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.haida.zs.pojo.Course" >
+    update course
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=CHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=CHAR},
+      </if>
+      <if test="authorId != null" >
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="love != null" >
+        love = #{love,jdbcType=INTEGER},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.haida.zs.pojo.Course" >
+    update course
+    set title = #{title,jdbcType=CHAR},
+      author = #{author,jdbcType=CHAR},
+      author_id = #{authorId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      love = #{love,jdbcType=INTEGER},
+      photo_url = #{photoUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      status = #{status,jdbcType=BIT},
+      type = #{type,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>海大摄影网</title>
+        <meta name="description" content="">
+        <meta name="author" content="zhang">
+        
+        <link rel="stylesheet" href="${rq.contextPath}/assets/css/app.css">
+        <link href="${rq.contextPath}/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="${rq.contextPath}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="${rq.contextPath}/assets/css/templatemo-style.css" rel="stylesheet">
+
+<style type="text/css">
+
+.chaxun:hover{              /*链接鼠标悬停时*/
+		background:#3C3C3D;
+	        }
+.p_enter
+{
+border: solid 1px gray;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+course:hand;
+}
+ .left_img img{
+ 	float: left;
+ 	width: 555px;
+    <!--height: 240px;-->
+}
+.left_img p{
+	word-break:break-all;
+}
+</style>
+    </head>
+    <body>
+    
+    <!--message -->
+    
+    
+    
+        <!-- Header -->
+        <div class="templatemo-container">
+           <div class="slider" style="margin-top:0%">
+		  <div class="slider-img">
+			<ul class="slider-img-ul">
+			  <li><img src="${rq.contextPath}/assets/images/slider-5.jpg"></li>
+			  <li><img src="${rq.contextPath}/assets/images/slider-1.jpg"></li>
+			  <li><img src="${rq.contextPath}/assets/images/slider-2.jpg"></li>
+			  <li><img src="${rq.contextPath}/assets/images/slider-3.jpg"></li>
+			  <li><img src="${rq.contextPath}/assets/images/slider-4.jpg"></li>
+			  <li><img src="${rq.contextPath}/assets/images/slider-5.jpg"></li>
+			  <li><img src="${rq.contextPath}/assets/images/slider-1.jpg"></li>
+			</ul>
+		  </div>
+		</div>
+<div id="login_success"  style="z-index:99;width: 405px;position: fixed;top: 90%;right: 10px" class="alert alert-success">
+${user.name}，登陆成功。最后一次登录：${user.lastLoginTime}
+<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">
+		&times;
+	</button>
+</div>
+            <div>
+				<nav class="templatemo-nav">
+                        <ul class="">
+                            <li class="active"><a href="index.html">主页</a></li>
+                            <li><a href="${rq.contextPath}/photo/list.html">作品展示</a></li>
+                            <li><a href="${rq.contextPath}/course/list.html">摄影教程</a></li>
+                            <li><a href="${rq.contextPath}/user/zone.html">个人空间</a></li>
+                            <li>
+                            <form action="${rq.contextPath}/search.html" method="post">
+                            <input name="keyword" style="width: 150px;height: 35px" placeholder="请输入关键字"/>
+                            <input class="chaxun" type="submit" value="查询"  style="height: 60px;width:90px;border: 0px;color:#D0AF51;background:#3C3C3D"></input></li>
+							</form>
+							<#if user == null>
+							
+								<li><a href="${rq.contextPath}/login.html" style="color:red">游客<span>[登录]</a></span></li>
+							
+							<#else>
+                            <li><a href="#">
+                            <img width="40px" height="40px" src="${rq.contextPath}/assets/images/pic12.jpg" title="user-name" /><span>${user.name}</span></a>
+								<a href="${rq.contextPath}/logout.html" style="color:red"><span>[退出]</a></span></li>
+							</#if>
+                       
+                        </ul>
+                    </nav>
+			</div>
+
+        <!-- "New Arrivals" -->
+        <section class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="text-uppercase">作品展示<a style="font-size: 25px" href="${rq.contextPath}/photo/write.html"><sub><li class="fa fa-edit">发表</li></sub></a></h2>
+                    <hr class="templatemo-section-header-hr">
+                    <a class="text-uppercase templatemo-section-subheader" href="${rq.contextPath}/photo/list.html">更多</a>
+                </div>
+            </div>
+            <div class="row">
+            <#list photos as photo>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 text-center">
+                                <div class="product-type-container">
+                                <input hidden="true" id="pid" value="${photo.id}"/>
+                                    <div class="product-type-overlay">
+                                        <div class="product-type-info">
+                                            <h3 class="white-text ">标题：${photo.title}</h3>
+                                            <p class=" white-text">作者：${photo.author}</p>
+                                            <p class=" white-text">时间：${photo.createTime}</p>
+                                        </div>
+                                    </div>
+                                   <a href="${rq.contextPath}/photo/single.html?photoId=${photo.id}">
+                                    <img id="" src="${photo.url}" width="300px" height="400px"  class="product-type-img img-responsive">
+                                	</a>
+                                </div>
+                </div>
+				</#list>
+            </div>
+        </section> <!-- end "New Arrivals" -->
+		
+        <!-- "Product Type" -->
+        <section class="templatemo-gray-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="text-uppercase">摄影教程<a style="font-size: 25px" href="${rq.contextPath}/course/write.html"><sub><li class="fa fa-edit">发表</li></sub></a></h2>
+                        <hr class="templatemo-section-header-hr">
+                       <a class="text-uppercase templatemo-section-subheader" href="${rq.contextPath}/course/list.html">更多</a>
+                    </div>
+                </div>
+                <#list courses as course>
+                <#if course_index%2==0>
+                <div class="row">
+                </#if>
+            		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                       		 <h3 align="center">${course.title}</h3>
+                       		<div class="left_img">
+                       			${course.content}
+                       		<a  href="${rq.contextPath}/course/single.html?courseId=${course.id}">前往阅读>></a>
+                       		</div>
+                    </div>
+					
+                    <#if course_index%2!=0>
+                    </div>
+                    </#if>
+					</#list>
+                    
+                </div>
+            </div>
+        </section> <!-- end Product Type -->
+
+        <!-- "暂时不管" 
+        <section class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="text-uppercase">个人空间</h2>
+                    <hr class="templatemo-section-header-hr">
+                    <p class="text-uppercase templatemo-section-subheader">更多</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="product-menu text-uppercase">
+                        <li class="active"><a href="#">作品</a></li>
+                        <li><a href="#">文章</a></li>
+                        <li><a href="#">信息</a></li>
+            
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 margin-bottom-10 text-center">
+                    <h3 class="text-uppercase"><span class="gold-text">Men</span> Fashion</h3>
+                    <p>Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, netmabh.</p>
+                    <a href="#" class="text-uppercase btn-gray-bordered">View More</a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 margin-bottom-10 text-center">
+                    <img src="${rq.contextPath}/assets/img/men-1.jpg" alt="Men fashion 1" class="img-fashion gold-border">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 margin-bottom-10 text-center">
+                    <img src="${rq.contextPath}/assets/img/men-2.jpg" alt="Men fashion 2" class="img-fashion gold-border">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 margin-bottom-10 text-center">
+                    <img src="${rq.contextPath}/assets/img/men-3.jpg" alt="Men fashion 3" class="img-fashion gold-border">
+                </div>
+            </div><hr>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 margin-bottom-10 text-center">
+                    <h3 class="text-uppercase"><span class="gold-text">Women</span> Fashion</h3>
+                    <p>Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, netmabh.</p>
+                    <a href="#" class="text-uppercase btn-gray-bordered">View More</a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 margin-bottom-10 text-center">
+                    <img src="${rq.contextPath}/assets/img/product-type-1.jpg" alt="Women fashion 1" class="img-fashion gold-border">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 margin-bottom-10 text-center">
+                    <img src="${rq.contextPath}/assets/img/women-2.jpg" alt="Women fashion 2" class="img-fashion gold-border">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 margin-bottom-10 text-center">
+                    <img src="${rq.contextPath}/assets/img/product-type-2.jpg" alt="Women fashion 3" class="img-fashion gold-border">
+                </div>
+            </div>
+        </section>
+-->
+         <!-- end "Our Products" -->
+        <!-- "About Us" -->
+        <section class="templatemo-dark-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="text-uppercase gold-text">关于我们</h2>
+                        <hr class="templatemo-about-hr">
+                        <p class="templatemo-about-subtitle">海大摄影网,专注摄影爱好者的分享与交流</p>
+                        <hr class="templatemo-about-hr">
+                        <p class="gray-text about-us-text">我不认为我们能改变你的的眼光。瞄准点是你自己决定的，你认为的幸运的意外、在瞄准点之外拍到的照片，也是你自己拍得。
+                        		我们尊重你的选择，我们只是分享摄影的乐趣。</p>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- end "About Us" -->
+
+        <footer class="text-center">
+            <p class="text-uppercase">
+            	Copyright &copy; 2017 海大摄影网
+            	 <a href="#" title="海大摄影网">zhangsheng</a>QQ<a href="" title="zhangsheng" target="">微信</a>
+            </p>
+        </footer>
+
+        <!-- JS -->
+        <script type="text/javascript" src="${rq.contextPath}/assets/js/jquery.min.js"></script>      <!-- jQuery -->
+        <script type="text/javascript" src="${rq.contextPath}/assets/js/templatemo-script.js"></script>      <!-- Templatemo Script -->
+		<script src="${rq.contextPath}/assets/js/xSlider.js"></script>
+
+		<script type="text/javascript">
+			$(function(){
+				window.setTimeout(login_msg_hide,3000);
+			})
+			function login_msg_hide(){
+				$('#login_success').hide();
+			}
+		$('.product-type-container').click(
+			function(){
+				location.href = "${rq.contextPath}/photo/single.html?photoId="+this.children[0].value;
+			}		
+		);
+		
+		
+		</script>
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>海大摄影网.编辑作品</title>
+		<style>
+			form {
+				margin: 0;
+			}
+			textarea {
+				display: block;
+			}
+		</style>
+		<link rel="stylesheet" href="${rq.contextPath}/assets/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="${rq.contextPath}/assets/kindeditor/default.css" />
+		<script charset="utf-8" src="${rq.contextPath}/assets/kindeditor/kindeditor-min.js"></script>
+		<script charset="utf-8" src="${rq.contextPath}/assets/kindeditor/zh_CN.js"></script>
+		<script>
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="info"]', {
+					//uploadJson : '${rq.contextPath}/course/upload.html',
+	                //fileManagerJson : '${rq.contextPath}/course/fileManager.html',
+	                afterUpload: function(){this.sync();}, //图片上传后，将上传内容同步到textarea中
+	                afterBlur: function(){this.sync();},   ////失去焦点时，将上传内容同步到textarea中
+	                items : [
+	                    'fontname','fontsize', '|','forecolor', 'hilitecolor','bold', 'italic','underline',
+	                    'removeformat','|', 'justifyleft','justifycenter', 'justifyright','insertorderedlist',
+	                    'insertunorderedlist'
+	                    ]   
+				});
+				K('input[name=isEmpty]').click(function(e) {
+					alert(editor.isEmpty());
+				});
+				K('input[name=getText]').click(function(e) {
+					alert(editor.text());
+				});
+			
+				K('input[name=clear]').click(function(e) {
+					editor.html('');
+				});
+			});
+			
+		</script>
+	</head>
+	<body>
+	<div align="center" style="margin: 10px">
+		<form  role="form" method="post" action="${rq.contextPath}/photo/save.html" enctype="multipart/form-data">
+		     <i style="font: 20">标题</i> <input value="${photo.title}" required="required" name="title" class="form-control" type="text" placeholder="标题" style="width: 300px;"/>
+		     <div class="form-group" style="width: 300px">
+			    主题类型：<select id="select_theme" name="theme" onchange="change()"  class="form-control" required="required">
+			      <option value="校内" selected="selected">海大校内</option>
+			      <option value="校外">海大校外</option>
+			    </select>
+			    <select  id="select_type" name="type"  class="form-control" required="required">
+					  <option value="校门口" selected="selected">校门口</option>
+					  <option value="蝴蝶湖">蝴蝶湖</option>
+					  <option value="教学楼">教学楼</option>
+					  <option value="图书馆">图书馆</option>
+					  <option value="海洋广场">海洋广场</option>
+					  <option value="中心广场">中心广场</option>
+					  <option value="中歌小剧院">中歌小剧院</option>
+					  <option value="其它">其它</option>
+			    </select>
+			  </div>
+			作者：<input readonly="readonly" name="author" value="${user.name}" class="form-control" type="text" placeholder="用户尚未登录" style="width: 300px;"/>
+			<br/>
+			<br/>
+			<input hidden="true" name="authorId" value="${user.id}"/>
+			<input hidden="true" name="id" value="${photo.id}"/>
+			<div class="upload">上传图片</div>
+			<input id="f" type="file" name="image" onchange="change()" />
+			<p>预览:</p>
+			<p>
+				<img id="preview" alt="" name="pic" src="${photo.url}" />
+			</p>
+			<textarea  name="info" style="width:960px;height:320px;visibility:hidden;" placeholder="摄影分享">
+				${photo.info}
+			
+			</textarea>
+			<p>
+				<input type="submit" class="btn btn-info" value="提交" />
+				<input type="button" class="btn btn-warning" name="clear" value="清空内容" />
+			</p>
+		</form>
+		</div>
+		<script charset="utf-8" src="${rq.contextPath}/assets/js/jquery.min.js"></script>
+		<script charset="utf-8" src="${rq.contextPath}/assets/js/placeImage.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			
+			if('${user}' == ''){
+				location.href = '${rq.contextPath}/login.html';
+			}
+			
+			if ('${photo.theme}' != '' && '${photo.theme}' != '全部'){
+       		 $('#select_theme').val('${photo.theme}');
+       		 if ('${photo.theme}' == '校外'){
+    				$('#select_type').append(school_out);
+    			}else{
+    				$('#select_type').append(school_in);
+    				
+    			}
+       		 if ('${photo.type}' != ''){
+           		 $('#select_type').val('${photo.type}');
+           	 }
+       	 }
+			
+			
+		})
+		
+		var school_in =
+			'  <option value="校门口">校门口</option>'+
+			'  <option value="蝴蝶湖">蝴蝶湖</option>'+
+			'  <option value="教学楼">教学楼</option>'+
+			'  <option value="图书馆">图书馆</option>'+
+			 ' <option value="海洋广场">海洋广场</option>'+
+			 ' <option value="中心广场">中心广场</option>'+
+			 ' <option value="中歌小剧院">中歌小剧院</option>'+
+			 ' <option value="其它">其它</option>';
+		var school_out = 
+				'<option value="人物">人物</option>'+
+				'<option value="风景">风景</option>'+
+				'<option value="微距摄影">微距摄影</option>';
+		
+		function change(){
+			var v = $('#select_theme option:selected').val();
+			$('#select_type').empty();
+			if (v == '校外'){
+				$('#select_type').append(school_out);
+			}else{
+				$('#select_type').append(school_in);
+				
+			}
+		}
+		
+		
+		</script>
+	</body>
+</html>

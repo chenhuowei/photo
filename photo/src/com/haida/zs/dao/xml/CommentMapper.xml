@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haida.zs.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.haida.zs.pojo.Comment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="photo_id" property="photoId" jdbcType="INTEGER" />
+    <result column="photo_title" property="photoTitle" jdbcType="CHAR" />
+    <result column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="course_title" property="courseTitle" jdbcType="CHAR" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="author" property="author" jdbcType="CHAR" />
+    <result column="reply_comment_id" property="replyCommentId" jdbcType="INTEGER" />
+    <result column="reply_name" property="replyName" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="user" property="user" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="is_read" property="isRead" jdbcType="BIT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, photo_id, photo_title, course_id, course_title, author_id, author, reply_comment_id, 
+    reply_name, status, create_time, user, user_id, is_read, content
+  </sql>
+  
+  <select id="findByCourseId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findByPhotoId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where photo_id = #{photoId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.haida.zs.pojo.Comment" >
+    insert into comment (id, photo_id, photo_title, 
+      course_id, course_title, author_id, 
+      author, reply_comment_id, reply_name, 
+      status, create_time, user, user_id, 
+      is_read, content)
+    values (#{id,jdbcType=INTEGER}, #{photoId,jdbcType=INTEGER}, #{photoTitle,jdbcType=CHAR}, 
+      #{courseId,jdbcType=INTEGER}, #{courseTitle,jdbcType=CHAR}, #{authorId,jdbcType=INTEGER}, 
+      #{author,jdbcType=CHAR}, #{replyCommentId,jdbcType=INTEGER}, #{replyName,jdbcType=CHAR}, 
+      #{status,jdbcType=BIT}, #{createTime,jdbcType=CHAR}, #{user,jdbcType=CHAR}, #{userId,jdbcType=INTEGER}, 
+      #{isRead,jdbcType=BIT}, #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.haida.zs.pojo.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="photoId != null" >
+        photo_id,
+      </if>
+      <if test="photoTitle != null" >
+        photo_title,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="courseTitle != null" >
+        course_title,
+      </if>
+      <if test="authorId != null" >
+        author_id,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="replyCommentId != null" >
+        reply_comment_id,
+      </if>
+      <if test="replyName != null" >
+        reply_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="user != null" >
+        user,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="isRead != null" >
+        is_read,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="photoId != null" >
+        #{photoId,jdbcType=INTEGER},
+      </if>
+      <if test="photoTitle != null" >
+        #{photoTitle,jdbcType=CHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="courseTitle != null" >
+        #{courseTitle,jdbcType=CHAR},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=CHAR},
+      </if>
+      <if test="replyCommentId != null" >
+        #{replyCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="replyName != null" >
+        #{replyName,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null" >
+        #{isRead,jdbcType=BIT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.haida.zs.pojo.Comment" >
+    update comment
+    <set >
+      <if test="photoId != null" >
+        photo_id = #{photoId,jdbcType=INTEGER},
+      </if>
+      <if test="photoTitle != null" >
+        photo_title = #{photoTitle,jdbcType=CHAR},
+      </if>
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="courseTitle != null" >
+        course_title = #{courseTitle,jdbcType=CHAR},
+      </if>
+      <if test="authorId != null" >
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=CHAR},
+      </if>
+      <if test="replyCommentId != null" >
+        reply_comment_id = #{replyCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="replyName != null" >
+        reply_name = #{replyName,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="user != null" >
+        user = #{user,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null" >
+        is_read = #{isRead,jdbcType=BIT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.haida.zs.pojo.Comment" >
+    update comment
+    set photo_id = #{photoId,jdbcType=INTEGER},
+      photo_title = #{photoTitle,jdbcType=CHAR},
+      course_id = #{courseId,jdbcType=INTEGER},
+      course_title = #{courseTitle,jdbcType=CHAR},
+      author_id = #{authorId,jdbcType=INTEGER},
+      author = #{author,jdbcType=CHAR},
+      reply_comment_id = #{replyCommentId,jdbcType=INTEGER},
+      reply_name = #{replyName,jdbcType=CHAR},
+      status = #{status,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=CHAR},
+      user = #{user,jdbcType=CHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      is_read = #{isRead,jdbcType=BIT},
+      content = #{content,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

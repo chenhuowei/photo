@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="UTF-8">
+		<title>海大摄影网.搜索结果</title>
+		<link rel="stylesheet" href="${rq.contextPath}/assets/bootstrap/css/bootstrap.min.css">
+		<link href="${rq.contextPath}/assets/css/photo_style.css" rel='stylesheet' type='text/css' />
+		<link href="${rq.contextPath}/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/x-icon" href="images/fav-icon.png" />
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!---start-click-drop-down-menu----->
+		<script src="${rq.contextPath}/assets/js/jquery.min.js"></script>
+        <!----start-dropdown--->
+         <script type="text/javascript">
+         
+		</script>
+        <!----//End-dropdown--->
+        <style type="text/css">
+        	td{
+        		width: 150px;
+        	}
+        </style>
+	</head>
+	<body>
+		<!---start-wrap---->
+			<!---start-header---->
+			<div class="header">
+				<div class="wrap">
+				<div class="nav-icon">
+				</div>
+				 <div class="box" id="box">
+					 <div class="box_content">        					                         
+						<div class="box_content_center">
+						 	<div class="form_content">
+								<div class="menu_box_list">
+									<ul>
+										<li><a href="${rq.contextPath}/index.html"><span>主页</span></a></li>
+										<li><a href="${rq.contextPath}/photo/list.html"><span>作品展示</span></a></li>
+										<li><a href="${rq.contextPath}/course/list.html"><span>摄影教程</span></a></li>
+										<li><a href="${rq.contextPath}/user/zone.html" ><span >个人空间</span></a></li>
+										<div class="clear"> </div>
+									</ul>
+								</div>
+							</div>                                  
+						</div> 	
+					</div> 
+				</div>       	  
+				<div class="top-searchbar">
+					<form action="${rq.contextPath}/search.html" method="post">
+						<input name="keyword" type="text" placeholder="请输入关键字"/><input type="submit" value="" />
+					</form>
+				</div>
+				<div class="userinfo">
+					<div class="user">
+						<ul>
+						<li><a href="#"><img width="40px" height="40px" src="${rq.contextPath}/assets/images/pic12.jpg" title="user-name" /><span>${user.name}</span></a>
+							<a href="${rq.contextPath}/logout.html" style="color:red"><span>[退出]</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clear"> </div>
+			</div>
+		</div>
+		<!---//End-header---->
+		<!---start-content---->
+		<div class="content">
+			<div class="">
+			<div class="single-page">
+		
+				  <table class="table">
+				    <caption>搜索结果（作品）<a href="${rq.contextPath}/photo/write.html" type="button" class="btn btn-link">发表</a></caption>
+				    <thead>
+				      <tr>
+				        <th>标题</th>
+				        <th>主题</th>
+				        <th>时间</th></tr>
+				    </thead>
+				    <tbody>
+				    <#list photos as photo>
+				      <tr>
+				        <td>${photo.title}</td>
+				        <td>${photo.theme}</td>
+				        <td>${photo.createTime}</td>
+				        <td><a href="${rq.contextPath}/photo/single.html?photoId=${photo.id}">查看</a></td>
+				        </tr>
+				      </#list>
+				      <tr hidden="true">
+				        <td colspan="3">
+							<ul class="pager">
+							    <li><a href="#">上页</a></li>
+							    <li><a href="#">下页</a></li>
+							</ul>
+				        </td>
+				       </tr>
+				    </tbody>
+				  </table>
+			
+				  <table class="table">
+				    <caption>搜索结果（教程）<a href="${rq.contextPath}/course/write.html" type="button" class="btn btn-link">发表</a></caption>
+				    <thead>
+				      <tr>
+				        <th>标题</th>
+				        <th>主题</th>
+				        <th>时间</th></tr>
+				    </thead>
+				    <tbody>
+				     <#list courses as course>
+				      <tr>
+				        <td>${course.title}</td>
+				        <td>${course.type}</td>
+				        <td>${course.createTime}</td>
+				        <td><a href="${rq.contextPath}/course/single.html?courseId=${course.id}">查看</td>
+				        </tr>
+				      </#list>
+				        <tr hidden="true">
+				        <td colspan="3">
+							<ul class="pager">
+							    <li><a href="#">上页</a></li>
+							    <li><a href="#">下页</a></li>
+							</ul>
+				        </td>
+				       </tr>
+				        
+				    </tbody>
+				  </table>
+			
+							<!---//End-comments-section--->
+						</div>
+						 </div>
+		</div>
+		<!----start-footer--->
+		<footer class="text-center">
+			<p align="center" style="text-align: center;">Copyright &copy; 2017 海大摄影网
+            	 <a  title="海大摄影网">zhangsheng</a>
+           </p>
+		</footer>
+		<!----//End-footer--->
+		
+		<div hidden="true" id="update_success"  style="z-index:99;width: 405px;position: fixed;top: 90%;right: 10px" class="alert alert-success">
+								修改成功。
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">
+				&times;
+			</button>
+		</div>
+		<!---//End-wrap---->
+		<script src="${rq.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="${rq.contextPath}/assets/js/form_json.js"></script>
+		<script type="text/javascript">
+		function user_edit(){
+			$(".form-control").attr("readonly",false);
+			$("#user_submit_tr").attr("hidden",false);
+		}
+		function user_cannel(){
+			$("#user_submit_tr").attr("hidden",true);
+			$(".form-control").attr("readonly",true);
+		}
+		function user_submit(){
+			var json = (formToJson($('#user_form')));
+			if (null != json && json != "" && $('#user_name').val() != ''){
+				$.ajax({
+					url:'${rq.contextPath}/user/update.html',
+					method:'post',
+					data:json,
+					dataType:'json',
+					success:function(data){
+						location.reload();
+						if(data.success){
+							user_cannel();
+							$('#update_success').show();
+							window.setTimeout(update_msg_hide,3000);
+						}
+					},
+					error:function(){
+						alert('请求出错，请重试...');
+					}
+					
+				})
+			}else{
+				alert('用户昵称不能为空...');
+			}
+		}
+		
+		
+	
+		function update_msg_hide(){
+			$('#update_success').hide();
+		}
+		
+		</script>
+	</body>
+</html>
+

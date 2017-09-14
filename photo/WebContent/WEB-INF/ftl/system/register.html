@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>摄影爱好者.注册</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="${rq.contextPath}/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${rq.contextPath}/assets/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="${rq.contextPath}/assets/css/form-elements.css">
+        <link rel="stylesheet" href="${rq.contextPath}/assets/css/style.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="assets/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="${rq.contextPath}/assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="${rq.contextPath}/assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="${rq.contextPath}/assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="${rq.contextPath}/assets/ico/apple-touch-icon-57-precomposed.png">
+
+    </head>
+
+    <body>
+
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <h1><strong>海大摄影网</strong></h1>
+                            <div class="description">
+                            	<p>
+	                            	<strong>come on!</strong>加入我们吧,把你的作品和经验与我们一起分享。
+                            	</p>
+                            	<p >
+                            	<a style="color: green" href="${rq.contextPath}/index.html">首页</a><br/>
+	                            	已有账号，<a style="color:red" href="${rq.contextPath}/login.html">前往登录>></a>
+	                            	
+                            	</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                            <div class="form-bottom">
+			                    <form role="form" id="register_form" method="post" class="login-form">
+			                    	<div class="form-group">
+			                    		<label class="" for="form-username">用户账号</label>
+			                        	<input type="text" name="account" placeholder="" class="form-username form-control" id="form-username">
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="" for="form-password">用户密码</label>
+			                        	<input type="password" name="password" placeholder="" class="form-password form-control" id="form-password">
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="" for="form-cfg-password">确认密码</label>
+			                        	<input type="password" name="config-password" placeholder="" class="form-password form-control" id="form-cfg-password">
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="" for="form-password">用户昵称</label>
+			                        	<input type="text" name="name" placeholder="" class="form-password form-control" id="form-password">
+			                        </div>
+			                        <div class="form-group">
+			                        			性别：
+								        <div class="radio">
+										<label>
+											<input type="radio" name="sex" id="optionsRadios1" value="1" checked> 男
+										</label>
+										<label>
+											<input type="radio" name="sex" id="optionsRadios2" value="0">女
+										</label>
+										</div>
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="" for="form-password">用户邮箱</label>
+			                        	<input type="text" name="email" placeholder="" class="form-password form-control" id="form-password">
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="" for="form-password">年龄</label>
+			                        	<input type="number" name="age" placeholder="" class="form-password form-control" id="form-password">
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="" for="form-password">用户手机</label>
+			                        	<input type="text" name="phone" placeholder="" class="form-password form-control" id="form-password">
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="" for="form-password">摄影设备</label>
+			                        	<input type="text" name="use_device" placeholder="" class="form-password form-control" id="form-password">
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="" for="form-password">摄影专长</label>
+			                        	<input type="text" name="photo_type" placeholder="" class="form-password form-control" id="form-password">
+			                        </div>
+			                        <button type="button" class="btn" onclick="register()">注册</button>
+			                    </form>
+		                    </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="register_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">来自服务器的提示</h4>
+            </div>
+            <div class="modal-body">恭喜你，注册成功。5s后跳转到登录页面
+            	<a href="${rq.contextPath}/login.html">等不及，立即前往...</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+        <!-- Javascript -->
+        <script src="${rq.contextPath}/assets/js/jquery.min.js"></script>
+        <script src="${rq.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${rq.contextPath}/assets/js/jquery.backstretch.min.js"></script>
+        <script src="${rq.contextPath}/assets/js/scripts.js"></script>
+        
+       <script type="text/javascript">
+       $.fn.serializeObject = function()    
+       {    
+          var o = {};    
+          var a = this.serializeArray();    
+          $.each(a, function() {    
+              if (o[this.name]) {    
+                  if (!o[this.name].push) {    
+                      o[this.name] = [o[this.name]];    
+                  }    
+                  o[this.name].push(this.value || '');    
+              } else {    
+                  o[this.name] = this.value || '';    
+              }    
+          });    
+          return o;    
+       };  
+       function register(){
+       var json = $('#register_form').serializeObject(); 
+    	   $.ajax({
+      			url:'${rq.contextPath}/user/register.html',
+      			data:json,
+      			type:'post',
+      			dataType:'json',
+      			success:function(data){
+      				if(data){
+      					$('#register_modal').modal('show');
+      					window.setTimeout(toLogin,5000);
+      				}
+      			},
+      			error:function(){
+      				alert('请求有误，请重试...');
+      			}
+      		})
+       }
+       	function toLogin(){
+       		location.href="${rq.contextPath}/login.html"
+       	}	
+       </script>
+
+    </body>
+
+</html>

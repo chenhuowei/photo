@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="UTF-8">
+		<title>海大摄影网.作品展示</title>
+		<link rel="stylesheet" href="${rq.contextPath}/assets/bootstrap/css/bootstrap.min.css">
+		<link href="${rq.contextPath}/assets/css/photo_style.css" rel='stylesheet' type='text/css' />
+		<link href="${rq.contextPath}/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/x-icon" href="images/fav-icon.png" />
+		
+
+		<!----webfonts---->
+		<!----//webfonts---->
+		<!---start-click-drop-down-menu----->
+		<script src="${rq.contextPath}/assets/js/jquery.min.js"></script>
+        <!----start-dropdown--->
+        
+		<style type="text/css">
+			.green{
+				color:green;
+			}
+			.user_img{
+				width: 40px;
+				height: 40px;
+			}
+		</style>
+        <!----//End-dropdown--->
+	</head>
+	<body>
+		<!---start-wrap---->
+			<!---start-header---->
+			<div class="header">
+				<div class="wrap">
+				<div class="nav-icon">
+				</div>
+				 <div class="box" id="box">
+					 <div class="box_content">        					                         
+						<div class="box_content_center">
+						 	<div class="form_content">
+								<div class="menu_box_list">
+									<ul>
+										<li><a href="${rq.contextPath}/index.html"><span>主页</span></a></li>
+										<li style="background-color: #C9C9C9;"><a href="${rq.contextPath}/photo/list.html"><span>作品展示</span></a></li>
+										<li><a href="${rq.contextPath}/course/list.html"><span>摄影教程</span></a></li>
+										<li><a href="${rq.contextPath}/user/zone.html" ><span >个人空间</span></a></li>
+										<div class="clear"> </div>
+									</ul>
+								</div>
+							</div>                                  
+						</div> 	
+					</div> 
+				</div>       	  
+				<div class="top-searchbar">
+					<form hidden="true">
+						<input type="text" /><input type="submit" value="" />
+					</form>
+				</div>
+				<div class="userinfo">
+					<div class="user">
+						<ul>
+						<#if user == null>
+							<li><a href="${rq.contextPath}/login.html" style="color:red"><span>游客[登录]</a></span></li>
+							<#else>
+							<li><a href="#"><img class="user_img" src="${rq.contextPath}/assets/images/pic12.jpg" title="user-name" /><span>${user.name}</span></a>
+							<a href="${rq.contextPath}/logout.html" style="color:red"><span>[退出]</a></span></li>
+						</#if>
+						</ul>
+					</div>
+				</div>
+				<div class="clear"> </div>
+			</div>
+		</div>
+		<!---//End-header---->
+		<!---start-content---->
+		<div class="content">
+			<div class="wrap">
+			<div class="single-page">
+							<div class="single-page-artical">
+								<div class="artical-content">
+									<img style="" src="${photo.url}">
+									<h2 align="center" style="font-size: 25px">${photo.title}</h2>
+									<p><i class="fa fa-user green"></i>${photo.author}</p> 
+									<p><i class="fa fa-clock-o green"></i>${photo.createTime}</p> 
+									<p><i class="fa fa-location-arrow green"></i>${photo.theme}&nbsp;·&nbsp;${photo.type}</p> 
+									<p class="para1">摄影分享：<br/>&nbsp;&nbsp;&nbsp;&nbsp;${photo.info}</p> 
+									<p style="color:red">
+										<#if user.id==photo.authorId>
+												<a type="button" class="btn btn-link" href="${rq.contextPath}/photo/write.html?photoId=${photo.id}">编辑</a>
+											</#if>
+										<#if love.love>
+												<i name="0" class="fa fa-heart fa-2x"></i>
+												<#else>
+												<i name="1" style="color: grey" class="fa fa-heart fa-2x"></i>
+											</#if>
+									</p> 
+								    </div>
+								    
+		  						
+		  						 <div class="clear"> </div>
+							</div>
+							<!---start-comments-section--->
+							<div class="comment-section">
+				<div class="grids_of_2">
+					<h2>评论列表</h2>
+					<div class="grid1_of_2">
+					<#list comments as comment>
+							<div class="grid_img">
+								<a href=""><img src="${rq.contextPath}/assets/images/pic10.jpg" alt=""></a>
+							</div>
+							<div class="grid_text">
+								<h4 class="style1 list">${comment.user}</h4>
+								<h3 class="style">${comment.createTime}</h3>
+								<p class="para top">${comment.content}</p>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</#list>
+				</div>								
+						<div class="artical-commentbox">
+						 	<h2>我要评论</h2>
+				  			<div class="table-form">
+								<form action="${rq.contextPath}/comment/save.html" method="post" name="post_comment">
+									<div>
+										<input name="user" value="${user.name}" hidden="true"/>
+										<input name="userId" value="${user.id}" hidden="true"/>
+										<input name="photoTitle" value="${photo.title}" hidden="true"/>
+										<input name="photoId" value="${photo.id}" hidden="true"/>
+										<input name="authorId" value="${photo.authorId}" hidden="true"/>
+										<input name="author" value="${photo.author}" hidden="true"/>
+										<label>评论内容（300字以内）<span>*</span></label>
+										<textarea name="content"></textarea>	
+									</div>
+								<input type="submit" value="提交">
+								</form>
+									
+							</div>
+							<div class="clear"> </div>
+				  		</div>			
+					</div>
+			</div>
+							<!---//End-comments-section--->
+						</div>
+						 </div>
+		</div>
+		<!----start-footer--->
+		<footer class="text-center">
+			<p align="center" style="text-align: center;">Copyright &copy; 2017 海大摄影网
+            	 <a  title="海大摄影网">zhangsheng</a>QQ
+            	 <a  title="zhangsheng" target="">微信</a>
+           </p>
+		</footer>
+		<!----//End-footer--->
+		<!---//End-wrap---->
+		
+		<!-- reply 模态框（Modal） -->
+<div class="modal fade" id="reply_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">回复主题</h4>
+            </div>
+            <div class="modal-body">
+				<textarea rows="4" cols="86" draggable="true"></textarea>
+			
+            </div>
+            <div class="modal-footer">
+				<button class="btn-info">提交</button>
+				<button class="btn-warning">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+		<script src="${rq.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+		$('.reply_btn').click(
+			function(){
+				$('#reply_modal').modal('show')
+			}		
+		);
+		$('.fa-heart').click(
+			function(){
+				var obj =this;
+				if ('${user}'==''){
+					alert('请先登录');
+				}else{
+					$.ajax({
+						url:'${rq.contextPath}/love/save.html',
+						data:{'photoId':'${photo.id}','userId':'${user.id}','love':obj.getAttribute('name'),'id':'${love.id}'},
+						dataType:'json',
+						async:false,
+						success:function(data){
+							if(data){
+								location.reload();
+							}
+						}
+					})
+				}
+			}		
+		);
+		
+		</script>
+		
+		
+	</body>
+</html>
+

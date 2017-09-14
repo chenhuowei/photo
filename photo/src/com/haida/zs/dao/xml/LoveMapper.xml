@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haida.zs.dao.LoveMapper" >
+  <resultMap id="BaseResultMap" type="com.haida.zs.pojo.Love" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="photo_id" property="photoId" jdbcType="INTEGER" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="love" property="love" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, course_id, photo_id, author_id, user_id, love
+  </sql>
+  
+  <select id="findByUserCourse" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from love
+    where user_id = #{userId} and course_id = #{courseId}
+  </select>
+  
+  <select id="findByUserPhoto" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from love
+    where user_id = #{userId} and photo_id = #{photoId}
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from love
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from love
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.haida.zs.pojo.Love" >
+    insert into love (id, course_id, photo_id, 
+      author_id, user_id, love)
+    values (#{id,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{photoId,jdbcType=INTEGER}, 
+      #{authorId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{love,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.haida.zs.pojo.Love" >
+    insert into love
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="photoId != null" >
+        photo_id,
+      </if>
+      <if test="authorId != null" >
+        author_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="love != null" >
+        love,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="photoId != null" >
+        #{photoId,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="love != null" >
+        #{love,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.haida.zs.pojo.Love" >
+    update love
+    <set >
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="photoId != null" >
+        photo_id = #{photoId,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null" >
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="love != null" >
+        love = #{love,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.haida.zs.pojo.Love" >
+    update love
+    set course_id = #{courseId,jdbcType=INTEGER},
+      photo_id = #{photoId,jdbcType=INTEGER},
+      author_id = #{authorId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      love = #{love,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

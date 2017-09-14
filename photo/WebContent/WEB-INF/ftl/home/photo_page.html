@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	 <meta charset="utf-8">
+		<title>海大摄影网.作品列表</title>
+		<link href="${rq.contextPath}/assets/css/photo_style.css" rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="application/x-javascript"> 
+		/**
+		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+		*/
+		</script>
+		</script>
+		<!----webfonts---->
+		<!----//webfonts---->
+		<!-- Global CSS for the page and tiles -->
+		 <link href="${rq.contextPath}/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  		<link rel="stylesheet" href="${rq.contextPath}/assets/css/main.css">
+  		<!-- //Global CSS for the page and tiles -->
+		<!---start-click-drop-down-menu----->
+		<script src="${rq.contextPath}/assets/js/jquery.min.js"></script>
+        <!----start-dropdown--->
+         <script type="text/javascript">
+         $(function(){
+        	 if ('${theme}' != ''){
+        		 $('#select_theme').val('${theme}');
+        		 $('#select_type').empty();
+      			if ('${theme}' == '校外'){
+      				$('#select_type').append(school_out);
+      			}else if('${theme}' == '校内'){
+      				$('#select_type').append(school_in);
+      				
+      			}else{
+      				$('#select_type').append('  <option value="全部">全部</option>');
+      			}
+      			if ('${type}' != ''){
+      				$('#select_type').val('${type}');
+      			}else{
+      				$('#select_type').val('全部');
+      			}
+        	 }else{
+        		 $('#select_theme').val('全部');
+        		 
+        	 }
+        	 
+         })
+        
+         function changeType(){
+			 var v = $('#select_type option:selected').val();
+			 var t = $('#select_theme option:selected').val();
+			 location.href=encodeURI("${rq.contextPath}/photo/list.html?theme="+t+"&type="+v);
+		  }
+         var school_in =
+ 			'  <option value="全部">全部</option>'+
+ 			'  <option value="校门口">校门口</option>'+
+ 			'  <option value="蝴蝶湖">蝴蝶湖</option>'+
+ 			'  <option value="教学楼">教学楼</option>'+
+ 			'  <option value="图书馆">图书馆</option>'+
+ 			 ' <option value="海洋广场">海洋广场</option>'+
+ 			 ' <option value="中心广场">中心广场</option>'+
+ 			 ' <option value="中歌小剧院">中歌小剧院</option>'+
+ 			 ' <option value="其它">其它</option>';
+ 		var school_out =
+ 			'  <option value="全部">全部</option>'+
+ 			'<option value="人物">人物</option>'+
+ 			'<option value="风景">风景</option>'+
+ 			'<option value="微距摄影">微距摄影</option>';
+ 		
+ 		function change(){
+ 			var v = $('#select_theme option:selected').val();
+ 			url = "${rq.contextPath}/photo/list.html?theme="+v;
+			location.href=encodeURI(url);
+ 		}
+         
+         
+         
+		</script>
+		<style type="text/css">
+			img{
+				width: 400px;
+				<!--height: 320px;-->
+			}
+			.user_img{
+				width: 40px;
+				height: 40px;
+			}
+		</style>
+        <!----//End-dropdown--->
+		<!---//End-click-drop-down-menu----->
+	</head>
+	<body>
+	<input hidden="true" id="theme" value="${theme}"/>
+		<!---start-wrap---->
+			<!---start-header---->
+				<div class="header">
+				<div class="wrap">
+				<div class="nav-icon">
+				</div>
+				 <div class="box" id="box">
+					 <div class="box_content">        					                         
+						<div class="box_content_center">
+						 	<div class="form_content">
+								<div class="menu_box_list">
+									<ul>
+										<li><a href="${rq.contextPath}/index.html"><span>主页</span></a></li>
+										<li style="background-color: #C9C9C9;"><a href="${rq.contextPath}/photo/list.html"><span>作品展示</span></a></li>
+										<li><a href="${rq.contextPath}/course/list.html"><span>摄影教程</span></a></li>
+										<li><a href="${rq.contextPath}/user/zone.html" ><span >个人空间</span></a></li>
+										<div class="clear"> </div>
+									</ul>
+								</div>
+							</div>                                  
+						</div> 	
+					</div> 
+				</div>       	  
+				<div class="top-searchbar">
+					<form action="${rq.contextPath}/search.html" method="post">
+						<input name="keyword" type="text" placeholder="请输入关键字"/><input type="submit" value="" />
+					</form>
+				</div>
+				<div class="userinfo">
+					<div class="user">
+						<ul>
+							<#if user == null>
+							<li><a href="${rq.contextPath}/login.html" style="color:red"><span>游客[登录]</a></span></li>
+							<#else>
+							<li><a href="#"><img class="user_img" src="${rq.contextPath}/assets/images/pic12.jpg" title="user-name" /><span>${user.name}</span></a>
+							<a href="${rq.contextPath}/logout.html" style="color:red"><span>[退出]</a></span></li>
+						</#if>
+						</ul>
+					</div>
+				</div>
+				<div class="clear"> </div>
+			</div>
+		</div>
+		<!---//End-header---->
+		<!---start-content---->
+		<div class="content">
+			<div class="wrap">
+			 <div id="main" role="main">
+			    <a  style="font-size: 18px;color:green" href="${rq.contextPath}/photo/write.html"><sub><li class="fa fa-edit">发表</li></sub></a>
+			<div class="form-group">
+			    主题类型：<select id="select_theme" onchange="change()" class="form-control">
+			      <option value="全部">全部</option>
+			      <option value="校内" selected="selected">海大校内</option>
+			      <option value="校外">海大校外</option>
+			    </select>
+			    <select  id="select_type" name="type" onchange="changeType()"  class="form-control" required="required">
+					 <option value="全部" selected="selected">全部</option>
+			    </select>
+			  </div>
+			      <ul id="tiles">
+			        <!-- These are our grid blocks -->
+			        <#list photos as photo>
+			        <li onClick="location.href='${rq.contextPath}/photo/single.html?photoId=${photo.id}';">
+			        	<img src="${photo.url}" width="200" height="200">
+			        	<div class="post-info">
+			        		<div class="post-basic-info">
+				        		<h3>${photo.title}</h3>
+				        		<span><a href="#"><label> </label>${photo.theme}</a></span>
+				        		<p>${photo.info}</p>
+			        		</div>
+			        		
+			        	</div>
+			        </li>
+			       </#list>
+			        <!-- End of grid blocks -->
+			      </ul>
+			    </div>
+			</div>
+		</div>
+		<!---//End-content---->
+		
+		<!----start-footer--->
+		<div align="center">
+		</div>
+		<!----//End-footer--->
+		<!---//End-wrap---->
+	</body>
+</html>
+
